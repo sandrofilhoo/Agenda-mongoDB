@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <title>Novo contato</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap"  rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="./styles/create-contacts.css">
+    <script src="socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="create-contact">
+        <form name="contato" id="contato">
+            <h1>Cadastrar contato</h1>
+            <fieldset>
+                <legend>
+                    <h2>Novo Contato</h2>
+                </legend>
+                <div class="field-group">
+                    <div class="field">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" placeholder="Ex:Lucas" value="" required="required">
+                    </div>
+                    <div class="field">
+                        <label for="tel">Telefone</label>
+                        <input type="tel" id="tel" placeholder="Ex:55-99999999" maxlength="12" value="" required="required">
+                    </div>
+                    <div class="field">
+                        <label for="e-mail">E-mail</label>
+                        <input type="text" id="email" name="email" placeholder="Ex:Lucas@hotmail.com" value="" required="required">
+                    </div>
+                </div>
+            </fieldset>
+            <button type="reset" onclick="salvar()">Salvar</button>
+            <a href="./index.html">Voltar</a>
+       </form>
+    </div>
+    <script>
+        const socket = io()
+        function salvar(){
+            var name = document.getElementById('name').value
+            var tel = document.getElementById('tel').value
+            var email = document.getElementById('email').value
+            
+            
+
+            const newContact = {                
+                name:name,
+                tel:tel,
+                email:email
+            }
+            socket.emit("new-contact", newContact)
+            alert("Contato salvo")
+        }   
+    </script>
+
+</body>
+
+</html>
